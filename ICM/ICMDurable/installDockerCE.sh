@@ -6,6 +6,8 @@ LOG_FILE="${LOG_FILE%.*}".log
 
 printf "%s Scriptname running: $0\n" $(date '+%Y%m%d-%H:%M:%S:%N') | tee -a $LOG_FILE
 
+#sudo sed "s;127\.0\.0\.53;8\.8\.8\.8;g" /etc/resolv.conf > ~/resolv.conf && sudo cp ~/resolv.conf /etc/resolv.conf
+
 #__checks_____________
 
 if [ -z "$SUDO_USER" ]; then
@@ -148,6 +150,7 @@ fi
 (crontab -l 2>/dev/null; echo "* * * * * $ICM_HOME/restartContainers.sh") | crontab -
 error_exit "create cron job"
 
+sudo sed "s;127\.0\.0\.53;8\.8\.8\.8;g" /etc/resolv.conf > ~/resolv.conf && sudo cp ~/resolv.conf /etc/resolv.conf
 printf "%s Script complete\n" $(date '+%Y%m%d-%H:%M:%S:%N') | tee -a $LOG_FILE
 
 exit 0

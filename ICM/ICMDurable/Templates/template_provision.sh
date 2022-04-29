@@ -35,6 +35,7 @@ sleep 5
 printf "\n\n${GREEN}Running installDockerCE.sh...\n${RESET}"
 icm ssh --role VM --command "export DOCKER_STORAGE_DRIVER=devicemapper && ./ICM/installDockerCE.sh"
 exit_if_error "installDockerCE.sh failed on VM machines"
+icm ssh --role VM --command 'sudo sed "s;127\.0\.0\.53;8\.8\.8\.8;g" /etc/resolv.conf > ~/resolv.conf && sudo cp ~/resolv.conf /etc/resolv.conf'
 
 touch ./.provisionHasBeenRun
 
